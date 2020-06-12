@@ -65,9 +65,6 @@ class App extends Component {
       <UserContext.Provider value={{ username: this.state.username, userID: this.state.userID }}>
         <Router>
           <Switch>
-            <Route exact path="/signup">
-              <Signup />
-            </Route>
             <Route exact path="/search">
               <Search updateUser={this.updateUser} />
             </Route>
