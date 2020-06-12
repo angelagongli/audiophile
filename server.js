@@ -11,15 +11,14 @@ const routes = require("./routes");
 const PORT = process.env.PORT || 3001;
 
 io.on("connection", (socket) => {
-  socket.on("hello", () => {
-    console.log("received hello from Player.js!");
-    io.emit("hello");
-  });
   socket.on("toggle", (currentState) => {
     io.emit("toggle", currentState);
   });
   socket.on("comment", (user) => {
     io.emit("comment", user);
+  });
+  socket.on("invitation", (maker, joiner, conversationID) => {
+    io.emit("invitation", maker, joiner, conversationID);
   });
 });
 
@@ -35,7 +34,7 @@ app.use(passport.session());
 
 app.use(routes);
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/audiophile");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/audiophile", { useNewUrlParser: true });
 
 server.listen(PORT, function() {
   console.log(`API Server now listening on PORT ${PORT}!`);
