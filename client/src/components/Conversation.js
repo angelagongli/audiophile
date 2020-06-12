@@ -16,9 +16,9 @@ function Conversation(props) {
             <h1>
               {props.track.title} by {props.track.channel}
             </h1>
-            <h1>
+            <h2>
               A conversation between {props.maker.username} and {props.joiner.username}
-            </h1>
+            </h2>
             <CardContent>
               <p>
                 {props.track.description}

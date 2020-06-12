@@ -26,8 +26,8 @@ function Track(props) {
           <CardActions>
             <ViewBtn videoID={props.videoID} />
             {props.type === "searchResult" ?
-            <SaveBtn onClick={() => props.saveTrack(props)} title={props.title} /> : 
-            <span>
+            <SaveBtn onClick={() => props.saveTrack(props)} user={props.user} title={props.title} /> : 
+            <span className="button-span">
               <Dialog {...props} />
               <DeleteBtn onClick={() => props.deleteTrack(props.id)} />
             </span>}

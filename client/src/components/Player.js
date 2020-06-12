@@ -10,7 +10,11 @@ class Player extends Component {
         this.observable = timer(5000, 500);
         this.subscription = this.observable.subscribe(x => {
             if (this.player) {
-                this.props.updatePlayback({ currentTime: this.player.getCurrentTime() });    
+                this.props.updatePlayback({ 
+                    currentTime: this.player.getCurrentTime(),
+                    currentState: this.player.getPlayerState(),
+                    totalLength: this.player.getDuration()
+                });    
             }
         });
 
@@ -18,6 +22,7 @@ class Player extends Component {
             this.YT = window['YT'];
             this.player = new window['YT'].Player('player', {
                 videoId: this.props.videoID,
+                playerVars: { 'playsinline': 1, 'controls': 0 },
                 events: {
                     'onStateChange': this.onPlayerStateChange.bind(this)
                 }
@@ -26,11 +31,6 @@ class Player extends Component {
     }
 
     componentDidMount () {
-        this.socket.emit("hello");
-        this.socket.on("hello", () => {
-            console.log("detected own hello sent back from server.js!");
-        });
-
         this.socket.on("toggle", (currentState) => {
             if (currentState !== this.player.getPlayerState()) {
                 console.log(`emitted toggle event detected at Player.js! new state ${currentState} and state on this page ${this.player.getPlayerState()}`);
@@ -72,7 +72,7 @@ class Player extends Component {
 
     render() {
         return (
-            <div className="max-width-1024">
+            <div className="max-width-1024 player-container">
                 <div className="embed-responsive embed-responsive-16by9" id="player"></div>
             </div>
         );

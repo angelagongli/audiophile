@@ -31,8 +31,8 @@ function SimpleDialog(props) {
   };
 
   return (
-    <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
-      <DialogTitle id="simple-dialog-title">Discuss this track with _____!</DialogTitle>
+    <Dialog onClose={handleClose} aria-labelledby="choose-user" open={open}>
+      <DialogTitle id="choose-user">Discuss this track with _____!</DialogTitle>
       <List>
         {props.users.map((user) => (
           <ListItem button onClick={() => handleListItemClick(user._id)} key={user._id}>

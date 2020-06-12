@@ -3,7 +3,7 @@ import { Button } from '@material-ui/core';
 
 function PlayBtn(props) {
   return (
-    <Button variant="contained" href={"/play/" + props.id}>
+    <Button variant="contained" color="primary" href={"/play/" + props.id}>
       Play this Conversation
     </Button>
   );

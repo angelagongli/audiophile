@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
-import Header from "../components/Header";
-import Comment from "../components/Comment";
+import Comment from "./Comment";
 import API from "../utils/API";
 import UserContext from "../utils/userContext";
-import { Grid, Container, Button, TextField, List, ListItem } from '@material-ui/core';
+import { Container, Grid, Button, TextField, List, ListItem } from '@material-ui/core';
 
 function Text(props) {
   const [comments, setComments] = useState([]);
@@ -11,9 +10,10 @@ function Text(props) {
 
   useEffect(() => {
     loadComments();
-  }, []);
+  }, [comments]);
 
   const { username, userID } = useContext(UserContext);
+  const playback = props.playback;
 
   function loadComments() {
     API.getComments(props.id)
@@ -46,7 +46,7 @@ function Text(props) {
         API.saveComment({
             user: userID,
             text: formObject.text,
-            time: props.currentTime,
+            time: playback.currentTime,
             conversation: props.id
         })
         .then(res => loadComments())
@@ -58,12 +58,16 @@ function Text(props) {
     <Container>
       <Grid container>
         <Grid item sm={12}>
-          <Header>
+          <h2>
             Join the Conversation
-          </Header>
-          <div id="notifications">
-            emitted comment by {props.commentInfo.user} at {props.commentInfo.time} detected, forcing re-render 
-            text component re-renders at {props.currentTime}
+          </h2>
+          <div id="comment-info">
+            {props.commentInfo.user && props.commentInfo.user !== userID ? 
+            <p className="comment">
+              {(props.commentInfo.user === props.makerID ? props.maker : props.joiner) + 
+              " commented at " + props.prettifyTime(props.commentInfo.time) + "!"}
+            </p>
+            : ""}
           </div>
           <div className="comments-container">
             {comments.length ? (
@@ -74,7 +78,7 @@ function Text(props) {
                       id={comment._id}
                       user={comment.user}
                       text={comment.text}
-                      time={comment.time}
+                      time={props.prettifyTime(comment.time)}
                       maker={props.maker} makerID={props.makerID}
                       joiner={props.joiner} joinerID={props.joinerID}
                       deleteComment={deleteComment}
@@ -98,12 +102,12 @@ function Text(props) {
               <Button
                 id="submit-btn"
                 className="comment-btn"
-                data-user={userID}
+                user={userID}
                 variant="contained"
                 disabled={!(formObject.text)}
                 onClick={handleFormSubmit}
                 color="primary">
-                Say it at {props.currentTime}!
+                Say it at {props.prettifyTime(playback.currentTime)}!
               </Button>
             </form>
           </div>
