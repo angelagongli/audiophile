@@ -1,3 +1,104 @@
+.login-signup {
+  text-align: center;
+  padding: 10px;
+  margin: 10px;
+}
+
+.login-signup a {
+  color: black;
+  text-decoration: underline;
+}
+
+.nav a {
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px;
+}
+
+a:hover {
+  color: red;
+}
+
+.login-info {
+  background-color: #ffffff;
+  color: black;
+  border-radius: 0.25rem;
+  padding: 10px;
+  margin: 10px;
+}
+
+.user-span {
+  color: red;
+}
+
+.header {
+  text-align: center;
+}
+
+#notifications, #comment-info {
+  padding: 10px;
+  margin: 10px;
+}
+
+.notification, .comment {
+  font-weight: 500;
+  color: red;
+  border: 1px red solid;
+  border-radius: 0.25rem;
+  padding: 10px;
+  margin: 10px;
+}
+
+.notification a {
+  color: black;
+  text-decoration: underline;
+  padding: 10px;
+}
+
+.notification a:hover {
+  color: red;
+  text-decoration: underline;
+  padding: 10px;
+}
+
+.action {
+  text-align: center;
+}
+
+.action a {
+  font-size: 10rem;
+  color: navy;
+}
+
+#search-icon-hover, #queue-icon-hover, #play-icon-hover {
+  display: none;
+  text-decoration: none;
+}
+
+#search-icon:hover + #search-icon-hover,
+#queue-icon:hover + #queue-icon-hover,
+#play-icon:hover + #play-icon-hover {
+  display: inline;
+  text-decoration: none;
+  color: red;
+}
+
+.player-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#playback-info {
+  text-align: center;
+  padding: 10px;
+  margin: 10px;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
 #submit-btn {
   float: right;
   margin: 10px 0px;
@@ -9,6 +110,29 @@
 }
 
 .search-results-container {
+  max-height: 50vh;
+  border: 1px #DDDDDD solid;
+  border-radius: 4px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding: 10px;
+}
+
+.button-span {
+  display: flex;
+}
+
+.button-span button {
+  margin: 10px 10px 10px 0px;
+}
+
+#playback-info {
+  border: 1px #DDDDDD solid;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.comments-container {
   max-height: 50vh;
   border: 1px #DDDDDD solid;
   border-radius: 4px;
