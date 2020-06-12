@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
+import Header from "../components/Header";
 import API from "../utils/API";
 import { Container, TextField, Button } from '@material-ui/core';
 
@@ -52,7 +53,14 @@ class Login extends Component {
         } else {
             return (
                 <Container>
-                    Login or <a href="/signup">Signup</a>
+                    <Header>
+                        Hi, Audiophile!
+                    </Header>
+                    <div className="login-signup">
+                        <h2>
+                            Login or <a href="/signup">Signup</a>
+                        </h2>
+                    </div>
                     <div className="form">
                         <form>
                             <TextField

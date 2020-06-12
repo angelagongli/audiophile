@@ -49,6 +49,20 @@ function Play(props) {
         setCommentInfo(commentObject);
     }
 
+    function prettifyTime(time) {
+        if (time > 3600) {
+          return Math.floor(time / 3600) + ":" +
+          (Math.floor(time % 3600) < 600 ? "0" : "") +
+          Math.floor((time % 3600) / 60) + ":" +
+          (Math.floor((time % 3600) % 60) < 10 ? "0" : "") +
+          Math.floor((time % 3600) % 60);
+        } else {
+          return Math.floor(time / 60) + ":" +
+          (Math.floor(time % 60) < 10 ? "0" : "") +
+          Math.floor(time % 60);
+        }
+    }
+
     return (
         <div>
             <Nav {...props} />
@@ -57,13 +71,31 @@ function Play(props) {
                     <Grid item sm={12}>
                         <Header>
                             Playing Now: {conversationDetails.title} <br />
-                            A conversation between {conversationDetails.maker} and {conversationDetails.joiner}
                         </Header>
+                        <h2>
+                            A conversation between {conversationDetails.maker} and {conversationDetails.joiner}
+                        </h2>
+                        <div id="notifications"></div>
+                    </Grid>
+                    <Grid item sm={6}>
                         <Player id={id} videoID={conversationDetails.videoID}
                             updatePlayback={updatePlayback} updateCommentInfo={updateCommentInfo} />
-                        <div id="notifications"></div>
+                        <div id="playback-info">
+                            <h2>
+                                Current Playback: {playback.currentState === 1 ?
+                                <span style={{color: "red"}}>Playing</span> :
+                                <span style={{color: "blue"}}>Paused</span>} at
+                                <span style={playback.currentState === 1 ?
+                                {color: "red"} : {color: "blue"}}>
+                                {" " + prettifyTime(playback.currentTime)}
+                                </span>
+                                /{prettifyTime(playback.totalLength)}
+                            </h2>
+                        </div>
+                    </Grid>
+                    <Grid item sm={6}>
                         <Text id={id} userID={userID}
-                            currentTime={playback.currentTime} commentInfo={commentInfo} 
+                            playback={playback} commentInfo={commentInfo} prettifyTime={prettifyTime}
                             maker={conversationDetails.maker} makerID={conversationDetails.makerID}
                             joiner={conversationDetails.joiner} joinerID={conversationDetails.joinerID} />
                     </Grid>

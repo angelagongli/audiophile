@@ -6,6 +6,7 @@ import Track from "../components/Track";
 import API from "../utils/API";
 import UserContext from "../utils/userContext";
 import { Grid, Container, List, ListItem } from '@material-ui/core';
+import io from "socket.io-client";
 
 function Queue(props) {
   const [tracks, setTracks] = useState([]);
@@ -19,6 +20,7 @@ function Queue(props) {
   }, []);
 
   const { username, userID } = useContext(UserContext);
+  const socket = io();
 
   function loadTracks() {
     API.getTracks(userID)
@@ -47,6 +49,7 @@ function Queue(props) {
         })
           .then(res => {
             console.log("Conversation started!");
+            socket.emit("invitation", username, chosenID, res.data._id);
             setPlayID(res.data._id);
             setToPlay(true);
           });

@@ -58,53 +58,58 @@ function Search(props) {
         <div>
           <Nav {...props} />
           <Container>
-            <Grid item sm={12}>
-              <Header>
-                Track Search
-              </Header>
-              <div id="notifications"></div>
-              <div className="form">
-                <form>
-                  <TextField
-                    name="query"
-                    id="query"
-                    onChange={handleInputChange}
-                    label="Search on YouTube"
-                    variant="outlined"
-                    fullWidth />
-                  <Button
-                    id="submit-btn"
-                    variant="contained"
-                    disabled={!(formObject.query)}
-                    onClick={handleFormSubmit}
-                    color="primary">
-                    Submit Track
-                  </Button>
-                </form>
-              </div>
-            </Grid> 
-            <h2>Search Results</h2>
-            <div className="search-results-container">
-              {tracks.length ? (
-                <List>
-                  {tracks.map(track => (
-                    <ListItem key={track.videoID}>
-                      <Track
-                        videoID={track.videoID}
-                        title={track.title}
-                        channel={track.channel}
-                        published={track.published}
-                        description={track.description}
-                        image={track.image}
-                        type="searchResult"
-                        saveTrack={saveTrack} />
-                    </ListItem>
-                  ))}
-                </List>
-              ) : (
-                <h3>No Results to Display</h3>
-              )}
-            </div>
+            <Grid container>
+              <Grid item sm={12}>
+                <Header>
+                  Track Search
+                </Header>
+                <div id="notifications"></div>
+                <div className="form">
+                  <form>
+                    <TextField
+                      name="query"
+                      id="query"
+                      onChange={handleInputChange}
+                      label="Search on YouTube"
+                      variant="outlined"
+                      fullWidth />
+                    <Button
+                      id="submit-btn"
+                      variant="contained"
+                      disabled={!(formObject.query)}
+                      onClick={handleFormSubmit}
+                      color="primary">
+                      Submit Track
+                    </Button>
+                  </form>
+                </div>
+              </Grid>
+              <Grid item sm={12}>
+                <h2>Search Results</h2>
+                <div className="search-results-container">
+                  {tracks.length ? (
+                    <List>
+                      {tracks.map(track => (
+                        <ListItem key={track.videoID}>
+                          <Track
+                            videoID={track.videoID}
+                            title={track.title}
+                            channel={track.channel}
+                            published={track.published}
+                            description={track.description}
+                            image={track.image}
+                            user={userID}
+                            type="searchResult"
+                            saveTrack={saveTrack} />
+                        </ListItem>
+                      ))}
+                    </List>
+                  ) : (
+                    <h3>No Results to Display</h3>
+                  )}
+                </div>
+              </Grid>
+            </Grid>
           </Container>
         </div>
   );
