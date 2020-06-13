@@ -75,6 +75,11 @@ a:hover {
   text-decoration: none;
 }
 
+#search-icon:hover, #queue-icon:hover, #play-icon:hover {
+  display: none;
+  text-decoration: none;
+}
+
 #search-icon:hover + #search-icon-hover,
 #queue-icon:hover + #queue-icon-hover,
 #play-icon:hover + #play-icon-hover {
