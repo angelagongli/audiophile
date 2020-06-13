@@ -14,7 +14,7 @@ export default {
     return axios.post("/api/tracks", trackData);
   },
   search: function(searchTerm) {
-    return axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyBi-2ll4v7K5TlZauKCfxNaV12s6e-cNPo&q=${searchTerm}&maxResults=20&type=video`);
+    return axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyANOAAun0vmkANez2nWWswUK5Jx9GQ0ZVg&q=${searchTerm}&maxResults=20&type=video`);
   },
 
   getComments: function(id) {
