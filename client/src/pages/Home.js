@@ -11,8 +11,11 @@ function Home(props) {
     <div>
       <Nav {...props} />
       <Header>
-        Welcome back, {username}! What do you want to do?
+        Welcome back, {username}!
       </Header>
+      <h2>
+        What do you want to do?
+      </h2>
       <div id="notifications"></div>
       <Container>
         <Grid container>
