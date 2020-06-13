@@ -1,5 +1,5 @@
 import axios from "axios";
-const KEY = "AIzaSyANOAAun0vmkANez2nWWswUK5Jx9GQ0ZVg";
+const KEY = "AIzaSyBi-2ll4v7K5TlZauKCfxNaV12s6e-cNPo";
 
 export default {
   getTracks: function(id) {
