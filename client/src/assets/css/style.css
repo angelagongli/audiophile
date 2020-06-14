@@ -35,12 +35,12 @@ a:hover {
   text-align: center;
 }
 
-#notifications, #comment-info {
+#notifications, #comment-info, #validation {
   padding: 10px;
   margin: 10px;
 }
 
-.notification, .comment {
+.notification, .comment, .validation-message {
   font-weight: 500;
   color: red;
   border: 1px red solid;
