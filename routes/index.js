@@ -6,10 +6,21 @@ const passport = require("../config/passport");
 
 router.use("/api", apiRoutes);
 
-router.post("/api/login",
-  passport.authenticate("local"),
-  function(req, res) {
-    res.json(req.user);
+router.post("/api/login", function(req, res, next) {
+  passport.authenticate("local", function(err, user, info) {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.json(info);
+    }
+    req.logIn(user, function(err) {
+      if (err) {
+        return next(err);
+      }
+      return res.json(user);
+    });    
+  })(req, res, next);
 });
 
 router.post("/api/signup",
