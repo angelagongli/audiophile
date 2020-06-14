@@ -9,13 +9,10 @@ passport.use(new LocalStrategy(
         username: username
       }).then(function(dbUser) {
         if (!dbUser) {
-          console.log("invalid username");
-          return done(null, false);
+          return done(null, false, "invalid username");
         }
-        // If there is a user with the given email, but the password the user gives us is incorrect
         else if (!dbUser.validPassword(password)) {
-          console.log("invalid password");
-          return done(null, false);
+          return done(null, false, "invalid password");
         }
         return done(null, dbUser);
       }).catch(err => {
