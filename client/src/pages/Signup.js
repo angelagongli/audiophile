@@ -10,7 +10,8 @@ class Signup extends Component {
         this.state = {
             username: "",
             password: "",
-            redirectTo: null
+            redirectTo: null,
+            validationMessage: ""
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -30,7 +31,11 @@ class Signup extends Component {
             password: this.state.password
         })
         .then(response => {
-            if (response.status === 200) {
+            if (response.data === "user in database") {
+                this.setState({
+                    validationMessage: "You are signed up, please log in!"
+                });
+            } else if (response.status === 200) {
                 this.setState({
                     redirectTo: "/"
                 })
@@ -53,6 +58,12 @@ class Signup extends Component {
                         <h2>
                             <a href="/">Login</a> or Signup
                         </h2>
+                    </div>
+                    <div id="validation">
+                        {this.state.validationMessage ?
+                        <p className="validation-message">
+                            {this.state.validationMessage}
+                        </p> : ""}
                     </div>
                     <div className="form">
                         <form>
