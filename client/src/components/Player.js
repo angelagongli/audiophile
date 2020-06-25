@@ -31,9 +31,10 @@ class Player extends Component {
     }
 
     componentDidMount () {
-        this.socket.on("toggle", (currentState) => {
-            if (currentState !== this.player.getPlayerState()) {
-                console.log(`emitted toggle event detected at Player.js! new state ${currentState} and state on this page ${this.player.getPlayerState()}`);
+        this.socket.on("toggle", (currentState, conversation) => {
+            console.log(`emitted toggle event in ${conversation} detected at Player.js!`);
+            if (conversation === this.props.id && currentState !== this.player.getPlayerState()) {
+                console.log(`new state ${currentState} and state on this page ${this.player.getPlayerState()}`);
                 if (this.player.getPlayerState() === 1) {
                     // playing on this page, so pause
                     this.player.pauseVideo();
@@ -46,12 +47,14 @@ class Player extends Component {
             }
         });
 
-        this.socket.on("comment", (user) => {
-            console.log(`emitted comment by ${user} detected at Player.js!`);
-            this.props.updateCommentInfo({
-                user: user,
-                time: this.player.getCurrentTime()
-            });
+        this.socket.on("comment", (user, time, conversation) => {
+            console.log(`emitted comment by ${user} at ${time} in ${conversation} detected at Player.js!`);
+            if (conversation === this.props.id) {
+                this.props.updateCommentInfo({
+                    user: user,
+                    time: time
+                });    
+            }
         });
     }
 
@@ -67,7 +70,7 @@ class Player extends Component {
     }
 
     onPlayerStateChange = (event) => {
-        this.socket.emit("toggle", this.player.getPlayerState());
+        this.socket.emit("toggle", this.player.getPlayerState(), this.props.id);
     };
 
     render() {
