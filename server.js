@@ -11,11 +11,11 @@ const routes = require("./routes");
 const PORT = process.env.PORT || 3001;
 
 io.on("connection", (socket) => {
-  socket.on("toggle", (currentState) => {
-    io.emit("toggle", currentState);
+  socket.on("toggle", (currentState, conversation) => {
+    io.emit("toggle", currentState, conversation);
   });
-  socket.on("comment", (user) => {
-    io.emit("comment", user);
+  socket.on("comment", (user, time, conversation) => {
+    io.emit("comment", user, time, conversation);
   });
   socket.on("invitation", (maker, joiner, conversationID) => {
     io.emit("invitation", maker, joiner, conversationID);
