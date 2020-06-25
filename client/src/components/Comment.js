@@ -55,10 +55,12 @@ function Comment(props) {
   }
 
   return (
-    <Grid container spacing={2}>
+    <Grid container>
       <Grid item sm={10}>
-        <Card className="card" style={props.user === userID ?
-          {backgroundColor: "lightskyblue"} : {backgroundColor: "lightpink"}}>
+        <Card id={props.id} className="card"
+          style={props.user === userID ?
+          {backgroundColor: "lightskyblue"} :
+          {backgroundColor: "lightpink"}}>
           <CardActionArea>
             <h1>
               {props.user === props.makerID ? props.maker : props.joiner } @ {props.time}
@@ -68,13 +70,13 @@ function Comment(props) {
               <p>{props.text}</p>}
             </CardContent>
           </CardActionArea>
-          {props.user === userID ? 
-          <CardActions>
-            <OpenEditBtn onClick={handleEditStart} />
-            <DeleteBtn onClick={() => props.deleteComment(props.id)} />
-          </CardActions> : ""}
         </Card>
       </Grid>
+      {props.user === userID ? 
+        <Grid item sm={2}>
+          <OpenEditBtn onClick={handleEditStart} /><br />
+          <DeleteBtn onClick={() => props.deleteComment(props.id)} />
+        </Grid> : ""}
     </Grid>
   );
 }
