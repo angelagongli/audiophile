@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import Comment from "./Comment";
 import API from "../utils/API";
 import UserContext from "../utils/userContext";
@@ -7,7 +7,9 @@ import { Container, Grid, Button, TextField, List, ListItem } from '@material-ui
 function Text(props) {
   const [comments, setComments] = useState([]);
   const [formObject, setFormObject] = useState({});
-
+  const [newComment, setNewComment] = useState();
+  const ref = useRef(null);
+  
   useEffect(() => {
     loadComments();
   }, [comments]);
@@ -49,7 +51,16 @@ function Text(props) {
             time: playback.currentTime,
             conversation: props.id
         })
-        .then(res => loadComments())
+        .then(res => {
+          setNewComment(res.data._id);
+          loadComments();
+          setTimeout(() => {
+            ref.current.scrollIntoView({
+              behavior: "smooth",
+              block: "start"
+            });
+          }, 1000);
+        })
         .catch(err => console.log(err));
     }
   };
@@ -65,7 +76,7 @@ function Text(props) {
             {props.commentInfo.user && props.commentInfo.user !== userID ? 
             <p className="comment">
               {(props.commentInfo.user === props.makerID ? props.maker : props.joiner) + 
-              " commented at " + props.prettifyTime(props.commentInfo.time) + "!"}
+              " commented at " + props.commentInfo.time + "!"}
             </p>
             : ""}
           </div>
@@ -74,6 +85,8 @@ function Text(props) {
               <List>
                 {comments.map(comment => (
                   <ListItem key={comment._id}>
+                    {comment._id === newComment ?
+                    <span ref={ref}></span> : ""} 
                     <Comment
                       id={comment._id}
                       user={comment.user}
@@ -103,6 +116,8 @@ function Text(props) {
                 id="submit-btn"
                 className="comment-btn"
                 user={userID}
+                conversation={props.id}
+                time={props.prettifyTime(playback.currentTime)}
                 variant="contained"
                 disabled={!(formObject.text)}
                 onClick={handleFormSubmit}
