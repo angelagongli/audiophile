@@ -25,12 +25,19 @@ router.post("/api/login", function(req, res, next) {
 
 router.post("/api/signup",
   function(req, res) {
-    User.create({
+    User.findOne({
+      username: req.body.username
+    }).then(function(dbUser) {
+      if (dbUser) {
+        return res.json("user in database");
+      }
+      User.create({
         username: req.body.username,
         password: req.body.password
-    })
-    .then(function(dbUser) {
-      res.json(dbUser);
+      })
+      .then(function(dbUser) {
+        res.json(dbUser);
+      });
     })
     .catch(function(err) {
       res.status(401).json(err);
